@@ -4,6 +4,9 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { useContext } from "react";
+import { AuthContext } from "../../App";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDNE_5k9vJR2cdiIEZouDJ766nP9htDLxU",
@@ -18,6 +21,7 @@ const firebaseConfig = {
 
 
 function Login() {
+  const {setUser} = useContext(AuthContext)
   const [email, setEmail] = useState(" ")
   const [password, setPassword] =useState("")
   let history = useHistory()
@@ -37,7 +41,7 @@ function Login() {
   }
   const didLogin = (user) => {
     localStorage.setItem('userId', user.uid)
-  
+    setUser(user)
     history.push('/add')
   }
   return(
